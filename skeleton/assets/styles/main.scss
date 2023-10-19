@@ -1,21 +1,21 @@
 body {
-    background-color: $light !important;
+    background-color: $light;
   }
   nav img {
     width: 120px; /* Ajustez la taille selon vos besoins */
     height: 75px;
   }
   h1 {
-    font-size: 80px !important;
-    color: $secondary !important;
+    font-size: 80px ;
+    color: $secondary ;
     display: inline-block;
     -webkit-text-stroke: 1px $success;
     padding: 5px;
   }
   h2 {
-    color: $secondary!important;
+    color: $secondary;
     text-align: center;
-    font-size: 120px !important;
+    font-size: 120px ;
     font-style: normal;
     font-weight: 200;
     line-height: normal;
@@ -32,26 +32,26 @@ body {
   }
   @media screen and (max-width: 850px) {
     h1 {
-      font-size: 40px !important;
+      font-size: 40px ;
     }
     h2 {
-      font-size: 60px !important;
+      font-size: 60px ;
     }
   }
   @media screen and (max-width: 600px) {
     h1 {
-      font-size: 30px !important;
+      font-size: 30px ;
     }
     h2 {
-      font-size: 40px !important;
+      font-size: 40px ;
     }
   }
   @media screen and (max-width: 450px) {
     h1 {
-      font-size: 20px !important;
+      font-size: 20px ;
     }
     h2 {
-      font-size: 30px !important;
+      font-size: 30px ;
     }
   }
   
