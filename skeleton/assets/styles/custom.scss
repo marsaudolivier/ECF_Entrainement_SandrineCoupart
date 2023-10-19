@@ -38,3 +38,28 @@ h2 {
   border-radius: 25px;
   border: 1px solid $primary;
 }
+@media screen and (max-width: 850px) {
+  h1 {
+    font-size: 40px !important;
+  }
+  h2 {
+    font-size: 60px !important;
+  }
+}
+@media screen and (max-width: 600px) {
+  h1 {
+    font-size: 30px !important;
+  }
+  h2 {
+    font-size: 40px !important;
+  }
+}
+@media screen and (max-width: 450px) {
+  h1 {
+    font-size: 20px !important;
+  }
+  h2 {
+    font-size: 30px !important;
+  }
+}
+
