@@ -1,7 +1,13 @@
 body {
   background-color: $light;
+}
+.exo{
   font-family: "exo-2-variable", sans-serif;
   font-variation-settings: "wght" 400;
+}
+.merri{
+  font-family: "merriweather", serif;
+  font-weight: 400;
 }
 nav img {
   width: 120px; /* Ajustez la taille selon vos besoins */
@@ -13,8 +19,6 @@ h1 {
   display: inline-block;
   -webkit-text-stroke: 1px $success;
   padding: 5px;
-  font-family: "merriweather", serif;
-  font-weight: 400;
   font-style: normal;
 }
 h2 {
