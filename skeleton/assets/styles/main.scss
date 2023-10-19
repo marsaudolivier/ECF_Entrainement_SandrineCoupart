@@ -1,57 +1,70 @@
 body {
-    background-color: $light;
-  }
-  nav img {
-    width: 120px; /* Ajustez la taille selon vos besoins */
-    height: 75px;
-  }
+  background-color: $light;
+  font-family: "exo-2-variable", sans-serif;
+  font-variation-settings: "wght" 400;
+}
+nav img {
+  width: 120px; /* Ajustez la taille selon vos besoins */
+  height: 75px;
+}
+h1 {
+  font-size: 80px;
+  color: $secondary;
+  display: inline-block;
+  -webkit-text-stroke: 1px $success;
+  padding: 5px;
+  font-family: "merriweather", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+h2 {
+  color: $secondary;
+  text-align: center;
+  font-size: 120px;
+  font-style: normal;
+  font-weight: 200;
+  line-height: normal;
+  text-transform: uppercase;
+}
+h3 {
+  color: $secondary;
+  font-size: 28px;
+  font-style: normal;
+  text-transform: uppercase;
+  -webkit-text-stroke: 1px $primary;
+  padding: 5px;
+}
+.social {
+  width: 50px;
+  height: 50px;
+}
+.Container_Primary {
+  background-color: $dark;
+  border-radius: 25px;
+  border: 1px solid $primary;
+}
+// Media query for title
+@media screen and (max-width: 850px) {
   h1 {
-    font-size: 80px ;
-    color: $secondary ;
-    display: inline-block;
-    -webkit-text-stroke: 1px $success;
-    padding: 5px;
+    font-size: 40px;
   }
   h2 {
-    color: $secondary;
-    text-align: center;
-    font-size: 120px ;
-    font-style: normal;
-    font-weight: 200;
-    line-height: normal;
-    text-transform: uppercase;
+    font-size: 60px;
   }
-  .social {
-    width: 50px;
-    height: 50px;
+}
+@media screen and (max-width: 600px) {
+  h1 {
+    font-size: 30px;
   }
-  .Container_Primary {
-    background-color: $dark;
-    border-radius: 25px;
-    border: 1px solid $primary;
+  h2 {
+    font-size: 40px;
   }
-  @media screen and (max-width: 850px) {
-    h1 {
-      font-size: 40px ;
-    }
-    h2 {
-      font-size: 60px ;
-    }
+}
+@media screen and (max-width: 450px) {
+  h1 {
+    font-size: 20px;
   }
-  @media screen and (max-width: 600px) {
-    h1 {
-      font-size: 30px ;
-    }
-    h2 {
-      font-size: 40px ;
-    }
+  h2 {
+    font-size: 30px;
   }
-  @media screen and (max-width: 450px) {
-    h1 {
-      font-size: 20px ;
-    }
-    h2 {
-      font-size: 30px ;
-    }
-  }
-  
+}
