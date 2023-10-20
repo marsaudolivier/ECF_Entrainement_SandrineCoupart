@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RecipesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -38,8 +40,17 @@ class Recipes
     #[ORM\Column]
     private ?bool $patients_accessible = null;
 
-    #[ORM\ManyToOne(inversedBy: 'notes')]
-    private ?notices $notes = null;
+    #[ORM\ManyToMany(targetEntity: Recipes::class, mappedBy: 'ingredient')]
+    private Collection $ingredient;
+
+    #[ORM\ManyToMany(targetEntity: notices::class, inversedBy: 'recipes')]
+    private Collection $note;
+
+    public function __construct()
+    {
+        $this->ingredient = new ArrayCollection();
+        $this->note = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -142,14 +153,53 @@ class Recipes
         return $this;
     }
 
-    public function getNotes(): ?notices
+    /**
+     * @return Collection<int, Recipes>
+     */
+    public function getIngredient(): Collection
     {
-        return $this->notes;
+        return $this->ingredient;
     }
 
-    public function setNotes(?notices $notes): static
+    public function addIngredient(Recipes $ingredient): static
     {
-        $this->notes = $notes;
+        if (!$this->ingredient->contains($ingredient)) {
+            $this->ingredient->add($ingredient);
+            $ingredient->addIngredient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIngredient(Recipes $ingredient): static
+    {
+        if ($this->ingredient->removeElement($ingredient)) {
+            $ingredient->removeIngredient($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, notices>
+     */
+    public function getNote(): Collection
+    {
+        return $this->note;
+    }
+
+    public function addNote(notices $note): static
+    {
+        if (!$this->note->contains($note)) {
+            $this->note->add($note);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(notices $note): static
+    {
+        $this->note->removeElement($note);
 
         return $this;
     }

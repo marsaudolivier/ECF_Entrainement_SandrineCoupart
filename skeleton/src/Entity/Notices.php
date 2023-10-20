@@ -21,9 +21,13 @@ class Notices
     #[ORM\OneToMany(mappedBy: 'notes', targetEntity: Recipes::class)]
     private Collection $notes;
 
+    #[ORM\ManyToMany(targetEntity: Recipes::class, mappedBy: 'note')]
+    private Collection $recipes;
+
     public function __construct()
     {
         $this->notes = new ArrayCollection();
+        $this->recipes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -68,6 +72,33 @@ class Notices
             if ($note->getNotes() === $this) {
                 $note->setNotes(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Recipes>
+     */
+    public function getRecipes(): Collection
+    {
+        return $this->recipes;
+    }
+
+    public function addRecipe(Recipes $recipe): static
+    {
+        if (!$this->recipes->contains($recipe)) {
+            $this->recipes->add($recipe);
+            $recipe->addNote($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipe(Recipes $recipe): static
+    {
+        if ($this->recipes->removeElement($recipe)) {
+            $recipe->removeNote($this);
         }
 
         return $this;
