@@ -42,6 +42,12 @@ h3 {
   -webkit-text-stroke: 1px $primary;
   padding: 5px;
 }
+h4{
+  color: $secondary;
+  font-size: 40px;
+  -webkit-text-stroke: 1px $primary;
+  padding: 5px;
+}
 //Footer style social link
 .social {
   width: 50px;
@@ -54,12 +60,29 @@ h3 {
   border: 1px solid $primary;
 }
 // Media query for title
+@media screen and (max-width: 1200px) {
+  h4 {
+    font-size: 30px;
+  }
+}
+@media screen and (max-width: 995px) {
+  h2 {
+    font-size: 80px;
+  }
+  h4 {
+    font-size: 25px;
+  }
+}
+
 @media screen and (max-width: 850px) {
   h1 {
     font-size: 40px;
   }
   h2 {
     font-size: 60px;
+  }
+  h4 {
+    font-size: 20px;
   }
 }
 @media screen and (max-width: 600px) {
@@ -69,6 +92,9 @@ h3 {
   h2 {
     font-size: 40px;
   }
+  h4 {
+    font-size: 15px;
+  }
 }
 @media screen and (max-width: 450px) {
   h1 {
@@ -77,11 +103,18 @@ h3 {
   h2 {
     font-size: 30px;
   }
+  h4 {
+    font-size: 10px;
+  }
 }
 //Style for ellipse picture
 .ellipse{
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
+}
+.ellipse_contact{
+  width: 150px;
+  height: 150px;
 }
 @media screen and (max-width: 1500px) {
   .ellipse{

@@ -1,22 +1,75 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ContactController!{% endblock %}
+{% block title %}Hello ContactController!
+{% endblock %}
 
 {% block body %}
-<div class="Container_Primary mt-4 container">
-	<div class="row align-items-center">
-		<h2 class="col-6 exo">me contacter</h2>
-		<img src="{{ asset('images/Ellipse2.png') }}" alt="Photo de Sandrine Coupart" class="ellipse_menu col-3 mx-auto ">
+	<div class="Container_Primary mt-4 container p-4">
+		<div class="row align-items-center">
+			<h2 class="col-6 col-sm-8 exo">me contacter</h2>
+			<img src="{{ asset('images/Ellipse2.png') }}" alt="Photo de Sandrine Coupart" class="col-4 col-sm-3  mx-auto">
+		</div>
 	</div>
-</div>
-<div class="container Container_Primary mt-4">
-    <div class="row">
-    <div class="col-12">
-    </div>
-    {{ form_start(form) }}
-    {{ form_rest(form) }}
-        <button type="submit">Enregistrer</button>
-    {{ form_end(form) }}
-    </div>
-</div>
-{% endblock %}
+	<div class="container Container_Primary mt-4 p-5">
+		<div class="row">
+			{{ form_start(form) }}
+			<div class="col-12">
+				<div class="row">
+					<div class="col-6">
+						{{ form_row(form.firstname, {
+                        'label': 'Nom',
+                        'attr': {
+                            'class': 'form-control',
+                            'placeholder': 'Entrez votre nom'
+                        }
+                    }) }}
+					</div>
+					<div class="col-6">
+						{{ form_row(form.lastname, {
+                        'label': 'Prénom',
+                        'attr': {
+                            'class': 'form-control',
+                            'placeholder': 'Entrez votre prénom'
+                        }
+                    }) }}
+					</div>
+				</div>
+			</div>
+			<div class="col-12">
+				{{ form_row(form.phone, {
+                'label': 'Téléphone',
+                'attr': {
+                    'class': 'form-control',
+                    'placeholder': 'Entrez votre numéro de téléphone'
+                }
+            }) }}
+				{{ form_row(form.mail, {
+                'label': 'Adresse e-mail',
+                'attr': {
+                    'class': 'form-control',
+                    'placeholder': 'Entrez votre adresse e-mail'
+                }
+            }) }}
+				{{ form_row(form.request, {
+                'label': 'Votre demande',
+                'attr': {
+                    'class': 'form-control',
+                    'placeholder': 'Entrez votre demande'
+                }
+            }) }}
+				<button type="submit" class="btn btn-primary align-items-center mt-3">Valider</button>
+			</div>
+			{{ form_end(form) }}
+		</div>
+	</div>
+	<div class="Container_Primary mt-4 container p-4">
+		<div class="row align-items-center">
+			<img src="{{ asset('images/Ellipse1.png') }}" alt="Photo de Sandrine Coupart" class="ellipse_contact col-2 mx-auto ">
+			<div class="col-8 exo">
+				<h4>Par mail: <strong>Sandrine-coupart@mail.fr</strong></h4>
+                <h4>Par Téléphone: <strong>06-00-00-00-00</strong> </h4>
+			</div>
+		</div>
+
+
+	{% endblock %}
