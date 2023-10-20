@@ -6,19 +6,23 @@
 			{% block title %}Welcome!
 			{% endblock %}
 		</title>
+		<!--Import styles-->
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
 			<link rel="stylesheet" href="https://use.typekit.net/qys4rns.css">
 			<link rel="stylesheet" href="https://use.typekit.net/pvz2ibh.css">
 		{% endblock %}
 	</head>
-	<body class="d-flex flex-column justify-content-between min-vh-100">
+	<body
+		class="d-flex flex-column justify-content-between min-vh-100">
+		<!--Import header-->
 		{% include "partial/header.html.twig" %}
 		<div class="flex-grow-1"> {% block body %}{% endblock %}
-		</div>
-		{% include "partial/footer.html.twig" %}
-		{% block javascripts %}
-			{{ encore_entry_script_tags('app') }}
-		{% endblock %}
+			</div>
+			<!--Import footer-->
+			{% include "partial/footer.html.twig" %}
+			{% block javascripts %}
+				{{ encore_entry_script_tags('app') }}
+			{% endblock %}
 		</body>
 	</html>

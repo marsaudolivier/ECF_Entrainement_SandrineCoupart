@@ -1,6 +1,8 @@
+//background colors theme
 body {
   background-color: $light;
 }
+//Add font style
 .exo{
   font-family: "exo-2-variable", sans-serif;
   font-variation-settings: "wght" 400;
@@ -9,10 +11,12 @@ body {
   font-family: "merriweather", serif;
   font-weight: 400;
 }
+//Picture for navbar
 nav img {
-  width: 120px; /* Ajustez la taille selon vos besoins */
+  width: 120px;
   height: 75px;
 }
+//Title style
 h1 {
   font-size: 80px;
   color: $secondary;
@@ -38,10 +42,12 @@ h3 {
   -webkit-text-stroke: 1px $primary;
   padding: 5px;
 }
+//Footer style social link
 .social {
   width: 50px;
   height: 50px;
 }
+//definite container style 
 .Container_Primary {
   background-color: $dark;
   border-radius: 25px;
@@ -72,6 +78,7 @@ h3 {
     font-size: 30px;
   }
 }
+//Style for ellipse picture
 .ellipse{
   width: 250px;
   height: 250px;
@@ -80,13 +87,11 @@ h3 {
   .ellipse{
     width: 150px;
     height: 150px;
-
   }
 }
 @media screen and (max-width: 1000px) {
   .ellipse{
     width: 100px;
     height: 100px;
-
   }
 }
