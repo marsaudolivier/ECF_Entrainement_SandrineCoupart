@@ -72,3 +72,21 @@ h3 {
     font-size: 30px;
   }
 }
+.ellipse{
+  width: 250px;
+  height: 250px;
+}
+@media screen and (max-width: 1500px) {
+  .ellipse{
+    width: 150px;
+    height: 150px;
+
+  }
+}
+@media screen and (max-width: 1000px) {
+  .ellipse{
+    width: 100px;
+    height: 100px;
+
+  }
+}
