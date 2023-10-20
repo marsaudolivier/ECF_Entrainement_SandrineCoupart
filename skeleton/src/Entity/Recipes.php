@@ -38,6 +38,9 @@ class Recipes
     #[ORM\Column]
     private ?bool $patients_accessible = null;
 
+    #[ORM\ManyToOne(inversedBy: 'notes')]
+    private ?notices $notes = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -135,6 +138,18 @@ class Recipes
     public function setPatientsAccessible(bool $patients_accessible): static
     {
         $this->patients_accessible = $patients_accessible;
+
+        return $this;
+    }
+
+    public function getNotes(): ?notices
+    {
+        return $this->notes;
+    }
+
+    public function setNotes(?notices $notes): static
+    {
+        $this->notes = $notes;
 
         return $this;
     }
