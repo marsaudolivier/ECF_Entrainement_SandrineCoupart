@@ -93,4 +93,5 @@ class Contact
 
         return $this;
     }
+
 }
