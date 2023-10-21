@@ -6,10 +6,14 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+
+
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -41,10 +45,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $age = null;
 
-    #[ORM\ManyToMany(targetEntity: diettypes::class, inversedBy: 'diets')]
+    #[ORM\ManyToMany(targetEntity: DietTypes::class, inversedBy: 'diets')]
     private Collection $diets;
 
-    #[ORM\ManyToMany(targetEntity: allergens::class, inversedBy: 'allergen')]
+    #[ORM\ManyToMany(targetEntity: Allergens::class, inversedBy: 'allergen')]
     private Collection $allergen;
 
     public function __construct()
@@ -179,7 +183,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->diets;
     }
 
-    public function addDiet(diettypes $diet): static
+    public function addDiet(DietTypes $diet): static
     {
         if (!$this->diets->contains($diet)) {
             $this->diets->add($diet);
@@ -188,7 +192,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeDiet(diettypes $diet): static
+    public function removeDiet(DietTypes $diet): static
     {
         $this->diets->removeElement($diet);
 
@@ -203,7 +207,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->allergen;
     }
 
-    public function addAllergen(allergens $allergen): static
+    public function addAllergen(Allergens $allergen): static
     {
         if (!$this->allergen->contains($allergen)) {
             $this->allergen->add($allergen);
@@ -212,7 +216,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeAllergen(allergens $allergen): static
+    public function removeAllergen(Allergens $allergen): static
     {
         $this->allergen->removeElement($allergen);
 

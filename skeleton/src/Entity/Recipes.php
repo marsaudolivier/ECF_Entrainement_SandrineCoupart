@@ -43,16 +43,16 @@ class Recipes
     #[ORM\ManyToMany(targetEntity: Recipes::class, mappedBy: 'ingredient')]
     private Collection $ingredient;
 
-    #[ORM\ManyToMany(targetEntity: notices::class, inversedBy: 'recipes')]
+    #[ORM\ManyToMany(targetEntity: Notices::class, inversedBy: 'recipes')]
     private Collection $note;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: user::class)]
     private Collection $user_write;
 
-    #[ORM\ManyToMany(targetEntity: diettypes::class, inversedBy: 'diet')]
+    #[ORM\ManyToMany(targetEntity: DietTypes::class, inversedBy: 'diet')]
     private Collection $diets;
 
-    #[ORM\ManyToMany(targetEntity: allergens::class, inversedBy: 'allergens')]
+    #[ORM\ManyToMany(targetEntity: Allergens::class, inversedBy: 'allergens')]
     private Collection $allergen;
 
     #[ORM\ManyToMany(targetEntity: Ingredients::class, mappedBy: 'ingredient')]
