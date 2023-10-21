@@ -55,6 +55,9 @@ class Recipes
     #[ORM\ManyToMany(targetEntity: allergens::class, inversedBy: 'allergens')]
     private Collection $allergen;
 
+    #[ORM\ManyToMany(targetEntity: Ingredients::class, mappedBy: 'ingredient')]
+    private Collection $ingredients;
+
     public function __construct()
     {
         $this->ingredient = new ArrayCollection();
@@ -62,6 +65,7 @@ class Recipes
         $this->user_write = new ArrayCollection();
         $this->diets = new ArrayCollection();
         $this->allergen = new ArrayCollection();
+        $this->ingredients = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -292,5 +296,13 @@ class Recipes
         $this->allergen->removeElement($allergen);
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Ingredients>
+     */
+    public function getIngredients(): Collection
+    {
+        return $this->ingredients;
     }
 }
