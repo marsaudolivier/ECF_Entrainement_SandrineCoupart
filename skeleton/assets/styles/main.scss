@@ -128,3 +128,28 @@ h4{
     height: 100px;
   }
 }
+.recipes_card{
+  border-radius: 25px;
+  border: 1px solid $primary;
+  margin: 10px;
+  padding: 10px;
+}
+.recipes_image{
+  border-radius: 25px;
+  width: 200px;
+  height: 200px;
+}
+@media screen and (max-width: 1500px) {
+  .recipes_image{
+    border-radius: 25px;
+    width: 150px;
+    height: 150px;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .recipes_image{
+    border-radius: 25px;
+    width: 100px;
+    height: 100px;
+  }
+}

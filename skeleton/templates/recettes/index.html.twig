@@ -1,17 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recettes{% endblock %}
+{% block title %}Recettes
+{% endblock %}
 
 {% block body %}
-    <div class="container-fluid p-5">
-        <div class="Container_Primary p-4 exo">
-            <h2>Nos recettes</h2>
-        </div>
-        
-        {% for recipe in recipes %}
-            <p>On est sur la recette {{ recipe.title }}</p>
-            {# Vous pouvez accéder aux propriétés de l'entité recipe, par exemple "title" #}
-        {% endfor %}
-
-    </div>
-{% endblock %}
+	<div class="container-fluid p-5">
+		<div class="Container_Primary p-4 exo">
+			<h2>Nos recettes</h2>
+		</div>
+		<div class="Container_Primary p-4 exo mt-4">
+<div class="row text-center ">
+			{% for recipe in recipes %}
+			<div class="col-3 recipes_card mx-auto">
+				<img src="upload/recipes/{{ recipe.image }} " class="recipes_image"></img>
+			<h3>{{ recipe.title }}</h3>
+			<ul>
+				{% for note in recipe.note %}
+					<li>{{ note }}</li>
+				{% endfor %}
+			</ul>
+			</div>
+		{% endfor %}
+</div>
+	</div>
+</div>{% endblock %}
