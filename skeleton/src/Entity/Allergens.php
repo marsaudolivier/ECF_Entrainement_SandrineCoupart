@@ -50,9 +50,9 @@ class Allergens
     /**
      * @return Collection<int, Recipes>
      */
-    public function getAllergens(): Collection
+    public function __toString(): string
     {
-        return $this->allergens;
+        return $this->type;
     }
 
     public function addAllergen(Recipes $allergen): static

@@ -2,11 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\RecipesRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\User;
+use App\Entity\Notices;
+use App\Entity\Allergens;
+use App\Entity\DietTypes;
+use App\Entity\Ingredients;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\RecipesRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: RecipesRepository::class)]
 class Recipes
@@ -22,31 +27,28 @@ class Recipes
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $preparation_time = null;
-
-    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $time_of_rest = null;
-
-    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $cooking_time = null;
-
     #[ORM\Column(type: Types::TEXT)]
     private ?string $steps = null;
 
     #[ORM\Column(length: 150)]
     private ?string $image = null;
 
+    #[ORM\Column(length: 10, nullable: true)]
+    private ?string $PreparationTime = null;
+
+    #[ORM\Column(length: 10, nullable: true)]
+    private ?string $TimeOfRest = null;
+
+    #[ORM\Column(length: 10, nullable: true)]
+    private ?string $CookingTime = null;
+
     #[ORM\Column]
     private ?bool $patients_accessible = null;
-
-    #[ORM\ManyToMany(targetEntity: Recipes::class, mappedBy: 'ingredient')]
-    private Collection $ingredient;
 
     #[ORM\ManyToMany(targetEntity: Notices::class, inversedBy: 'recipes')]
     private Collection $note;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: user::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: User::class)]
     private Collection $user_write;
 
     #[ORM\ManyToMany(targetEntity: DietTypes::class, inversedBy: 'diet')]
@@ -55,17 +57,16 @@ class Recipes
     #[ORM\ManyToMany(targetEntity: Allergens::class, inversedBy: 'allergens')]
     private Collection $allergen;
 
-    #[ORM\ManyToMany(targetEntity: Ingredients::class, mappedBy: 'ingredient')]
-    private Collection $ingredients;
+    #[ORM\ManyToMany(targetEntity: ingredients::class, inversedBy: 'recipes')]
+    private Collection $ingredien;
 
     public function __construct()
     {
-        $this->ingredient = new ArrayCollection();
         $this->note = new ArrayCollection();
         $this->user_write = new ArrayCollection();
         $this->diets = new ArrayCollection();
         $this->allergen = new ArrayCollection();
-        $this->ingredients = new ArrayCollection();
+        $this->ingredien = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -97,41 +98,7 @@ class Recipes
         return $this;
     }
 
-    public function getPreparationTime(): ?\DateTimeInterface
-    {
-        return $this->preparation_time;
-    }
 
-    public function setPreparationTime(\DateTimeInterface $preparation_time): static
-    {
-        $this->preparation_time = $preparation_time;
-
-        return $this;
-    }
-
-    public function getTimeOfRest(): ?\DateTimeInterface
-    {
-        return $this->time_of_rest;
-    }
-
-    public function setTimeOfRest(?\DateTimeInterface $time_of_rest): static
-    {
-        $this->time_of_rest = $time_of_rest;
-
-        return $this;
-    }
-
-    public function getCookingTime(): ?\DateTimeInterface
-    {
-        return $this->cooking_time;
-    }
-
-    public function setCookingTime(?\DateTimeInterface $cooking_time): static
-    {
-        $this->cooking_time = $cooking_time;
-
-        return $this;
-    }
 
     public function getSteps(): ?string
     {
@@ -169,32 +136,6 @@ class Recipes
         return $this;
     }
 
-    /**
-     * @return Collection<int, Recipes>
-     */
-    public function getIngredient(): Collection
-    {
-        return $this->ingredient;
-    }
-
-    public function addIngredient(Recipes $ingredient): static
-    {
-        if (!$this->ingredient->contains($ingredient)) {
-            $this->ingredient->add($ingredient);
-            $ingredient->addIngredient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIngredient(Recipes $ingredient): static
-    {
-        if ($this->ingredient->removeElement($ingredient)) {
-            $ingredient->removeIngredient($this);
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, notices>
@@ -228,7 +169,7 @@ class Recipes
         return $this->user_write;
     }
 
-    public function addUserWrite(user $userWrite): static
+    public function addUserWrite(User $userWrite): static
     {
         if (!$this->user_write->contains($userWrite)) {
             $this->user_write->add($userWrite);
@@ -238,7 +179,7 @@ class Recipes
         return $this;
     }
 
-    public function removeUserWrite(user $userWrite): static
+    public function removeUserWrite(User $userWrite): static
     {
         if ($this->user_write->removeElement($userWrite)) {
             // set the owning side to null (unless already changed)
@@ -258,7 +199,7 @@ class Recipes
         return $this->diets;
     }
 
-    public function addDiet(diettypes $diet): static
+    public function addDiet(Diettypes $diet): static
     {
         if (!$this->diets->contains($diet)) {
             $this->diets->add($diet);
@@ -267,7 +208,7 @@ class Recipes
         return $this;
     }
 
-    public function removeDiet(diettypes $diet): static
+    public function removeDiet(Diettypes $diet): static
     {
         $this->diets->removeElement($diet);
 
@@ -282,7 +223,7 @@ class Recipes
         return $this->allergen;
     }
 
-    public function addAllergen(allergens $allergen): static
+    public function addAllergen(Allergens $allergen): static
     {
         if (!$this->allergen->contains($allergen)) {
             $this->allergen->add($allergen);
@@ -291,7 +232,7 @@ class Recipes
         return $this;
     }
 
-    public function removeAllergen(allergens $allergen): static
+    public function removeAllergen(Allergens $allergen): static
     {
         $this->allergen->removeElement($allergen);
 
@@ -299,10 +240,80 @@ class Recipes
     }
 
     /**
-     * @return Collection<int, Ingredients>
+     * Get the value of PreparationTime
      */
-    public function getIngredients(): Collection
+    public function getPreparationTime(): ?string
     {
-        return $this->ingredients;
+        return $this->PreparationTime;
+    }
+
+    /**
+     * Set the value of PreparationTime
+     */
+    public function setPreparationTime(?string $PreparationTime): self
+    {
+        $this->PreparationTime = $PreparationTime;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of TimeOfRest
+     */
+    public function getTimeOfRest(): ?string
+    {
+        return $this->TimeOfRest;
+    }
+
+    /**
+     * Set the value of TimeOfRest
+     */
+    public function setTimeOfRest(?string $TimeOfRest): self
+    {
+        $this->TimeOfRest = $TimeOfRest;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of CookingTime
+     */
+    public function getCookingTime(): ?string
+    {
+        return $this->CookingTime;
+    }
+
+    /**
+     * Set the value of CookingTime
+     */
+    public function setCookingTime(?string $CookingTime): self
+    {
+        $this->CookingTime = $CookingTime;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ingredients>
+     */
+    public function getIngredien(): Collection
+    {
+        return $this->ingredien;
+    }
+
+    public function addIngredien(ingredients $ingredien): static
+    {
+        if (!$this->ingredien->contains($ingredien)) {
+            $this->ingredien->add($ingredien);
+        }
+
+        return $this;
+    }
+
+    public function removeIngredien(ingredients $ingredien): static
+    {
+        $this->ingredien->removeElement($ingredien);
+
+        return $this;
     }
 }

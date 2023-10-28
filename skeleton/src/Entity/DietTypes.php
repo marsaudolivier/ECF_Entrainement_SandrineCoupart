@@ -50,9 +50,9 @@ class DietTypes
     /**
      * @return Collection<int, Recipes>
      */
-    public function getDiet(): Collection
+    public function __toString(): string
     {
-        return $this->diet;
+        return $this->type;
     }
 
     public function addDiet(Recipes $diet): static

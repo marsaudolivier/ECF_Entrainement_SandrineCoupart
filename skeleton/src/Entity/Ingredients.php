@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\IngredientsRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Recipes;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\IngredientsRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: IngredientsRepository::class)]
 class Ingredients
@@ -18,12 +19,13 @@ class Ingredients
     #[ORM\Column(length: 75)]
     private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: recipes::class, inversedBy: 'ingredients')]
-    private Collection $ingredient;
+
+    #[ORM\ManyToMany(targetEntity: Recipes::class, mappedBy: 'ingredien')]
+    private Collection $recipes;
 
     public function __construct()
     {
-        $this->ingredient = new ArrayCollection();
+        $this->recipes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -44,25 +46,37 @@ class Ingredients
     }
 
     /**
-     * @return Collection<int, recipes>
+     * @return Collection<int, Recipes>
      */
-    public function getIngredient(): Collection
+    public function __toString(): string
     {
-        return $this->ingredient;
+        return $this->name;
     }
 
-    public function addIngredient(recipes $ingredient): static
+
+    /**
+     * @return Collection<int, Recipes>
+     */
+    public function getRecipes(): Collection
     {
-        if (!$this->ingredient->contains($ingredient)) {
-            $this->ingredient->add($ingredient);
+        return $this->recipes;
+    }
+
+    public function addRecipe(Recipes $recipe): static
+    {
+        if (!$this->recipes->contains($recipe)) {
+            $this->recipes->add($recipe);
+            $recipe->addIngredien($this);
         }
 
         return $this;
     }
 
-    public function removeIngredient(recipes $ingredient): static
+    public function removeRecipe(Recipes $recipe): static
     {
-        $this->ingredient->removeElement($ingredient);
+        if ($this->recipes->removeElement($recipe)) {
+            $recipe->removeIngredien($this);
+        }
 
         return $this;
     }
