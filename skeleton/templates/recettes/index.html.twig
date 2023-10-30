@@ -14,15 +14,15 @@
 			{% if recipe.patients_accessible != false %}
 				
 			<div class="col-3 recipes_card mx-auto">
-			<a href="">
-				<img src="upload/recipes/{{ recipe.image }} " class="recipes_image"></img></a>
+			<button class="btn"id="{{ recipe.id }}">
+				<img src="upload/recipes/{{ recipe.image }} " class="recipes_image"></img>
 			<h3>{{ recipe.title }}</h3>
 			<ul>
 				{% for note in recipe.note %}
 					<p>{{ note }}</p>
 				{% endfor %}
 			</ul>
-			</div>
+			</button></div>
 			{% endif %}
 			
 		{% endfor %}
