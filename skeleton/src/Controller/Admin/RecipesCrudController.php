@@ -41,6 +41,7 @@ class RecipesCrudController extends AbstractCrudController
                 ->setBasePath('upload/recipes')
                 ->setUploadDir('public/upload/recipes')
                 ->setUploadedFileNamePattern('[slug]-[contenthash].[extension]'),
+            TextField::new('TotalTime','Temps Total'),
             TextField::new('PreparationTime','Temps de préparation'),
             TextField::new('TimeOfRest','Temps de repot'),
             TextField::new('CookingTime','Temps de cuisson'),

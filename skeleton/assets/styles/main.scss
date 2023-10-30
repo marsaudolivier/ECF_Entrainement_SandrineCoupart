@@ -153,3 +153,18 @@ h4{
     height: 100px;
   }
 }
+.container_recipe_time{
+  background-color: $light;
+  border-radius: 25px;
+}
+.recipe_image{
+  border-radius: 25px;
+}
+.recipe_title{
+  font-size: 60px;
+  color: $secondary;
+  display: inline-block;
+  -webkit-text-stroke: 1px $success;
+  padding: 5px;
+  font-style: normal;
+}

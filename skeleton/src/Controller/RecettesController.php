@@ -19,4 +19,14 @@ class RecettesController extends AbstractController
             'recipes' => $recipes,
         ]);
     }
+    #[Route('/recette/{id}', name: 'app_recette')]
+    public function show(EntityManagerInterface $entityManager, $id): Response 
+    {
+        $recipe = $entityManager->getRepository(Recipes::class)->find($id);
+         return $this->render('recette/index.html.twig', [
+            'controller_name' => 'RecettesController',
+            'recipe' => $recipe,
+            'test' => $recipe,
+        ]);
+    }
 }

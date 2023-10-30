@@ -60,6 +60,9 @@ class Recipes
     #[ORM\ManyToMany(targetEntity: ingredients::class, inversedBy: 'recipes')]
     private Collection $ingredien;
 
+    #[ORM\Column(length: 255)]
+    private ?string $TotalTime = null;
+
     public function __construct()
     {
         $this->note = new ArrayCollection();
@@ -310,6 +313,18 @@ class Recipes
     public function removeIngredien(ingredients $ingredien): static
     {
         $this->ingredien->removeElement($ingredien);
+
+        return $this;
+    }
+
+    public function getTotalTime(): ?string
+    {
+        return $this->TotalTime;
+    }
+
+    public function setTotalTime(string $TotalTime): static
+    {
+        $this->TotalTime = $TotalTime;
 
         return $this;
     }

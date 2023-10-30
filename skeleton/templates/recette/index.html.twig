@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recettes
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid p-5">
+		<div class="Container_Primary p-4 exo">
+			<h2>Nos recettes</h2>
+		</div>
+		<div class="Container_Primary p-4 exo mt-4">
+			<div class="row text-center ">
+				<h3 class="recipe_title merri">{{ recipe.title }}</h3>
+				<div class="d-flex">
+					<div class="row text-center">
+						<div class="col-10">
+							<h4>Description</h4>
+							<p>{{ recipe.description   | raw }}</p>
+							<div class="container_recipe_time">
+								<p>Temps Total :{{ recipe.TotalTime }}</p>
+								<div class="d-flex justify-content-around">
+									<div>
+										<p>Temps de préparation :</p>
+										<p>{{ recipe.PreparationTime }}</p>
+									</div>
+									<div>
+										<p>Repos :</p>
+										<p>{{ recipe.TimeOfRest }}</p>
+									</div>
+									<div>
+										<p>Cuissons :</p>
+										<p>{{ recipe.CookingTime }}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-2">
+							<img src="/upload/recipes/{{ recipe.image }}" class="recipe_image h-75 w-100 p-3"></img>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div></div>{{dump(recipe)}}</div>{% endblock %}
