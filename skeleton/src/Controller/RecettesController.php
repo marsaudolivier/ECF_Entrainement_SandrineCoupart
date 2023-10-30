@@ -14,7 +14,7 @@ class RecettesController extends AbstractController
     public function index(EntityManagerInterface $entityManager): Response 
     {
         $recipes = $entityManager->getRepository(Recipes::class)->findAll();
-        return $this->render('recettes/index.html.twig', [
+         return $this->render('recettes/index.html.twig', [
             'controller_name' => 'RecettesController',
             'recipes' => $recipes,
         ]);

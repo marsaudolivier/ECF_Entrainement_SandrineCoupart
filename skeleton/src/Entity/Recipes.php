@@ -43,7 +43,7 @@ class Recipes
     private ?string $CookingTime = null;
 
     #[ORM\Column]
-    private ?bool $patients_accessible = null;
+    public ?bool $patients_accessible = null;
 
     #[ORM\ManyToMany(targetEntity: Notices::class, inversedBy: 'recipes')]
     private Collection $note;
@@ -97,8 +97,6 @@ class Recipes
 
         return $this;
     }
-
-
 
     public function getSteps(): ?string
     {
@@ -187,7 +185,6 @@ class Recipes
                 $userWrite->setUser(null);
             }
         }
-
         return $this;
     }
 

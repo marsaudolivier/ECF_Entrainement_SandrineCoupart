@@ -11,15 +11,20 @@
 		<div class="Container_Primary p-4 exo mt-4">
 <div class="row text-center ">
 			{% for recipe in recipes %}
+			{% if recipe.patients_accessible != false %}
+				
 			<div class="col-3 recipes_card mx-auto">
-				<img src="upload/recipes/{{ recipe.image }} " class="recipes_image"></img>
+			<a href="">
+				<img src="upload/recipes/{{ recipe.image }} " class="recipes_image"></img></a>
 			<h3>{{ recipe.title }}</h3>
 			<ul>
 				{% for note in recipe.note %}
-					<li>{{ note }}</li>
+					<p>{{ note }}</p>
 				{% endfor %}
 			</ul>
 			</div>
+			{% endif %}
+			
 		{% endfor %}
 </div>
 	</div>
