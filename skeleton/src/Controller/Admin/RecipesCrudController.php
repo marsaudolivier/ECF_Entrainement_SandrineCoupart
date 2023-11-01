@@ -38,8 +38,8 @@ class RecipesCrudController extends AbstractCrudController
             TextField::new('title','Titre'),
             TextEditorField::new('description'),
             ImageField::new('image')
-                ->setBasePath('upload/recipes')
-                ->setUploadDir('public/upload/recipes')
+                ->setBasePath('uploads/recipes')
+                ->setUploadDir('public/uploads/recipes')
                 ->setUploadedFileNamePattern('[slug]-[contenthash].[extension]'),
             TextField::new('TotalTime','Temps Total'),
             TextField::new('PreparationTime','Temps de préparation'),
@@ -62,7 +62,10 @@ class RecipesCrudController extends AbstractCrudController
             ->setFormTypeOption('label', 'Ingrédients')
             ->autocomplete()
             ->setHelp('Sélectionnez un ou plusieurs ingrédients'),
-
+            AssociationField::new('note')
+            ->setFormTypeOption('multiple', true)
+            ->setFormTypeOption('label', 'Note')
+            ->setHelp('Sélectionnez une note'),
         ];
     }
     

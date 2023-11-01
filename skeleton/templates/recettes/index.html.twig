@@ -15,17 +15,12 @@
 				
 			<div class="col-3 recipes_card mx-auto">
 			<a class="btn" href="recette/{{ recipe.id }}">
-				<img src="upload/recipes/{{ recipe.image }} " class="recipes_image"></img>
+				<img src="uploads/recipes/{{ recipe.image }} " class="recipes_image"></img>
 			<h3>{{ recipe.title }}</h3>
-			<ul>
-				{% for note in recipe.note %}
-					<p>{{ note }}</p>
-				{% endfor %}
-			</ul>
 			</a></div>
-			{% endif %}
-			
+		{{ dump(recipe) }}
+			{% endif %}	
 		{% endfor %}
-</div>
+</div>	
 	</div>
 </div>{% endblock %}

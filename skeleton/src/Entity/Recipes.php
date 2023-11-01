@@ -3,10 +3,10 @@
 namespace App\Entity;
 
 use App\Entity\User;
-use App\Entity\Notices;
 use App\Entity\Allergens;
 use App\Entity\DietTypes;
 use App\Entity\Ingredients;
+use App\Entity\Notices;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\RecipesRepository;
@@ -45,8 +45,6 @@ class Recipes
     #[ORM\Column]
     public ?bool $patients_accessible = null;
 
-    #[ORM\ManyToMany(targetEntity: Notices::class, inversedBy: 'recipes')]
-    private Collection $note;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: User::class)]
     private Collection $user_write;
@@ -63,13 +61,17 @@ class Recipes
     #[ORM\Column(length: 255)]
     private ?string $TotalTime = null;
 
+    #[ORM\OneToMany(mappedBy: 'recipes', targetEntity: notices::class)]
+    private Collection $notices;
+
+
     public function __construct()
     {
-        $this->note = new ArrayCollection();
         $this->user_write = new ArrayCollection();
         $this->diets = new ArrayCollection();
         $this->allergen = new ArrayCollection();
         $this->ingredien = new ArrayCollection();
+        $this->notices = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -133,31 +135,6 @@ class Recipes
     public function setPatientsAccessible(bool $patients_accessible): static
     {
         $this->patients_accessible = $patients_accessible;
-
-        return $this;
-    }
-
-
-    /**
-     * @return Collection<int, notices>
-     */
-    public function getNote(): Collection
-    {
-        return $this->note;
-    }
-
-    public function addNote(notices $note): static
-    {
-        if (!$this->note->contains($note)) {
-            $this->note->add($note);
-        }
-
-        return $this;
-    }
-
-    public function removeNote(notices $note): static
-    {
-        $this->note->removeElement($note);
 
         return $this;
     }
@@ -325,6 +302,37 @@ class Recipes
     public function setTotalTime(string $TotalTime): static
     {
         $this->TotalTime = $TotalTime;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notices>
+     */
+
+    public function getNotices(): Collection
+    {
+        return $this->notices;
+    }
+
+    public function addNotice(Notices $notice): static
+    {
+        if (!$this->notices->contains($notice)) {
+            $this->notices->add($notice);
+            $notice->setRecipes($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotice(notices $notice): static
+    {
+        if ($this->notices->removeElement($notice)) {
+            // set the owning side to null (unless already changed)
+            if ($notice->getRecipes() === $this) {
+                $notice->setRecipes(null);
+            }
+        }
 
         return $this;
     }

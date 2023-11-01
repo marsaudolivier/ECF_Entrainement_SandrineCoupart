@@ -8,6 +8,7 @@ use App\Entity\Allergens;
 use App\Entity\DietTypes;
 use App\Entity\Recipes;
 use App\Entity\Ingredients;
+use App\Entity\Notices;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -40,5 +41,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Allergène ', 'fas fa-biohazard', Allergens::class);
         yield MenuItem::linkToCrud('Régime Alimentaire ', 'fas fa-utensils', DietTypes::class);
         yield MenuItem::linkToCrud('Contact ', 'fas fa-message', Contact::class);
+        yield MenuItem::linkToCrud('note ', 'fas fa-message', Notices::class);
     }
 }
