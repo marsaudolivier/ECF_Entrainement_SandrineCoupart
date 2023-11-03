@@ -62,10 +62,6 @@ class RecipesCrudController extends AbstractCrudController
             ->setFormTypeOption('label', 'Ingrédients')
             ->autocomplete()
             ->setHelp('Sélectionnez un ou plusieurs ingrédients'),
-            AssociationField::new('note')
-            ->setFormTypeOption('multiple', true)
-            ->setFormTypeOption('label', 'Note')
-            ->setHelp('Sélectionnez une note'),
         ];
     }
     

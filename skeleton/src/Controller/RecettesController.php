@@ -13,7 +13,12 @@ class RecettesController extends AbstractController
     #[Route('/recettes', name: 'app_recettes')]
     public function index(EntityManagerInterface $entityManager): Response 
     {
-        $recipes = $entityManager->getRepository(Recipes::class)->findAll();
+        $recipes = $entityManager->getRepository(Recipes::class)
+        ->createQueryBuilder('r')
+        ->leftJoin('r.notices', 'n')
+        ->addSelect('n')
+        ->getQuery()
+        ->getResult();
          return $this->render('recettes/index.html.twig', [
             'controller_name' => 'RecettesController',
             'recipes' => $recipes, 

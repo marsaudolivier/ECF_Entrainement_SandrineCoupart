@@ -61,7 +61,7 @@ class Recipes
     #[ORM\Column(length: 255)]
     private ?string $TotalTime = null;
 
-    #[ORM\OneToMany(mappedBy: 'recipes', targetEntity: notices::class)]
+    #[ORM\OneToMany(mappedBy: 'recipes', targetEntity: Notices::class)]
     private Collection $notices;
 
 

@@ -14,7 +14,6 @@
 					{# Calcul pour la note  #}
 				</br>Note :{% set total = 0 %}
 				{% set count = 0 %}
-
 				{% for notice in recipe.notices %}
 					{% set total = total + notice.note %}
 					{% set count = count + 1 %}
@@ -81,4 +80,5 @@
 			</div>
 		</div>
 	</div>
+	{{ dump(recipe) }}
 </div>{% endblock %}
