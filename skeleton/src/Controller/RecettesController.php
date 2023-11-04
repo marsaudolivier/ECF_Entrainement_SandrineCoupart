@@ -4,42 +4,58 @@ namespace App\Controller;
 
 use App\Entity\Notices;
 use App\Entity\Recipes;
+use Psr\Log\LoggerInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Psr\Log\LoggerInterface;
-
-
 
 class RecettesController extends AbstractController
 {
     #[Route('/recettes', name: 'app_recettes')]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager , Security $security): Response
     {
-        $recipes = $entityManager->getRepository(Recipes::class)
-            ->createQueryBuilder('r')
-            ->leftJoin('r.notices', 'n')
-            ->addSelect('n')
-            ->getQuery()
-            ->getResult();
-        return $this->render('recettes/index.html.twig', [
-            'controller_name' => 'RecettesController',
-            'recipes' => $recipes,
-        ]);
+        $recipes = $entityManager->getRepository(Recipes::class)->findAll();
+       // Vérifie si l'utilisateur est connecté
+    if ($security->isGranted('IS_AUTHENTICATED_FULLY')) {
+        // Vérifie si l'utilisateur a le rôle PATIENT
+        if ($security->isGranted('ROLE_PATIENT')) {
+            // L'utilisateur a le rôle UTILISATEUR, afficher la vue recettesUser
+            return $this->render('recettesUser/index.html.twig', [
+                'controller_name' => 'RecettesController',
+                'recipes' => $recipes,
+            ]);
+        }
+    }
+    // L'utilisateur n'est pas connecté ou n'a pas le rôle PATIENT, afficher la vue recettes
+    return $this->render('recettes/index.html.twig', [
+        'controller_name' => 'RecettesController',
+        'recipes' => $recipes,
+    ]);
     }
     #[Route('/recette/{id}', name: 'app_recette')]
-    public function show(EntityManagerInterface $entityManager, $id): Response
+    public function show(EntityManagerInterface $entityManager, $id  , Security $security): Response
     {
         $recipe = $entityManager->getRepository(Recipes::class)->find($id);
         $notices = $recipe->getNotices();
         $noticesArray = $notices->toArray();
+        if ($security->isGranted('IS_AUTHENTICATED_FULLY')) {
+            // Vérifie si l'utilisateur a le rôle PATIENT
+            if ($security->isGranted('ROLE_PATIENT')) {
+                // L'utilisateur a le rôle PATIENT, afficher la vue recetteUser
+                return $this->render('recetteUser/index.html.twig', [
+                    'controller_name' => 'RecettesController',
+                    'recipe' => $recipe,
+                    'notices' => $noticesArray,
+                ]);
+            }
+        }
         return $this->render('recette/index.html.twig', [
             'controller_name' => 'RecettesController',
             'recipe' => $recipe,
-            'notices' => $noticesArray,
         ]);
     }
 
