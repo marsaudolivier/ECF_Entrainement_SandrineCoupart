@@ -314,6 +314,16 @@ class Recipes
     {
         return $this->notices;
     }
+    //récupération de toutes le notes et mise dans un tableau
+    public function getAllNotices()
+    {
+        $notices = $this->getNotices();
+        $notes = [];
+        foreach ($notices as $notice) {
+            $notes[] = $notice->getNote();
+        }
+        return $notes;
+    }
 
     public function addNotice(Notices $notice): static
     {
@@ -336,4 +346,5 @@ class Recipes
 
         return $this;
     }
+    
 }
