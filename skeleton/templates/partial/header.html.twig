@@ -28,7 +28,11 @@
 						<a class="nav-link" href="/inscription">Inscription</a>
 					</li>
 					<li class="nav-itemt test">
-						<a class="nav-link" href="/connexion">Connexion</a>
+						{% if app.user %}
+								<a href="/logout" class="btn btn-dark">Déconnexion</a>
+							{% else %}
+							<a class="nav-link" href="/connexion">Connexion</a>
+						{% endif %}
 					</li>
 				</ul>
 			</div>
