@@ -44,9 +44,15 @@ class UserAuthenticatirAuthenticator extends AbstractLoginFormAuthenticator
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
-
-        // For example:
-        // return new RedirectResponse($this->urlGenerator->generate('some_route'));
+        //récupération user role
+        $user = $token->getUser();
+        if (in_array('ROLE_ADMIN', $user->getRoles())) {
+            // Rediriger vers la page admin si l'utilisateur est un administrateur
+            return new RedirectResponse($this->urlGenerator->generate('admin'));
+        }
+    
+        // Si l'utilisateur n'est pas un administrateur, rediriger vers la page recettes
+        return new RedirectResponse($this->urlGenerator->generate('index'));
         throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
