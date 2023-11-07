@@ -180,6 +180,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->diets;
     }
+    public function GetAllDiets()
+    {
+        $diets = $this->diets;
+        $dietsArray = $diets->toArray();
+        return $dietsArray;
+    }
 
     public function addDiet(DietTypes $diet): static
     {
@@ -204,7 +210,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->allergen;
     }
-
+    public function GetAllAllergen()
+    {
+        $allergens = $this->allergen;
+        $allergensArray = $allergens->toArray();
+        return $allergensArray;
+    }
+ 
     public function addAllergen(Allergens $allergen): static
     {
         if (!$this->allergen->contains($allergen)) {

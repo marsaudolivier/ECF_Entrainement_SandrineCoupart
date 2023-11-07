@@ -20,13 +20,24 @@ class RecettesController extends AbstractController
     {
         $recipes = $entityManager->getRepository(Recipes::class)->findAll();
        // Vérifie si l'utilisateur est connecté
+
     if ($security->isGranted('IS_AUTHENTICATED_FULLY')) {
         // Vérifie si l'utilisateur a le rôle PATIENT
         if ($security->isGranted('ROLE_PATIENT')) {
-            // L'utilisateur a le rôle UTILISATEUR, afficher la vue recettesUser
+              // L'utilisateur a le rôle PATIENT, afficher la vue recetteUser
+                    // Récupérez l'utilisateur connecté
+                    $user = $this->getUser();
+                    // Récupérez les allergènes et les diet types de l'utilisateur
+                    $diets = $user->GetAllDiets();
+                    $allergens = $user->GetAllAllergen();
+                    
+                    // L'utilisateur a le rôle UTILISATEUR, afficher la vue recettesUser
             return $this->render('recettesUser/index.html.twig', [
                 'controller_name' => 'RecettesController',
                 'recipes' => $recipes,
+                'users' => $user,
+                'diets' => $diets,
+                'allergens' => $allergens,
             ]);
         }
     }
@@ -46,10 +57,12 @@ class RecettesController extends AbstractController
             // Vérifie si l'utilisateur a le rôle PATIENT
             if ($security->isGranted('ROLE_PATIENT')) {
                 // L'utilisateur a le rôle PATIENT, afficher la vue recetteUser
+            // Récupérez les allergènes et les diet types de l'utilisateur
                 return $this->render('recetteUser/index.html.twig', [
                     'controller_name' => 'RecettesController',
                     'recipe' => $recipe,
                     'notices' => $noticesArray,
+  
                 ]);
             }
         }

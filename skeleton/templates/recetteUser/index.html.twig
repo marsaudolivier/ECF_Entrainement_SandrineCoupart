@@ -97,18 +97,16 @@ const recipeId = {{ recipe.id }};
 axios.post(`/api/recipe/${recipeId}/add-note/${newNote}`, {
 notes: newNote,
 id: newid
-}).then(function (response) {
-	//récupération de l'objet data
+}).then(function (response) { // récupération de l'objet data
 let objetJson = response.data;
-//verrif qu'il sagit bien d'un objet json
-if (objetJson.data && Array.isArray(objetJson.data)) {
-	//calcul de la somme
+// verrif qu'il sagit bien d'un objet json
+if (objetJson.data && Array.isArray(objetJson.data)) { // calcul de la somme
 const somme = objetJson.data.reduce((acc, valeur) => acc + valeur, 0);
-//calcul de la moyenne
+// calcul de la moyenne
 const moyenne = somme / objetJson.data.length;
-//arrondi de la moyenne
+// arrondi de la moyenne
 const moyenneArrondie = Math.round(moyenne);
-//affichage de la moyenne dans la div etoile
+// affichage de la moyenne dans la div etoile
 document.getElementById("globalRating").src = `/images/etoile${moyenneArrondie}.svg`;
 }
 }).catch(function (error) {

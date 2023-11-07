@@ -11,11 +11,15 @@
 		<div class="Container_Primary p-4 exo mt-4">
 			<div class="row text-center ">
 				{% for recipe in recipes %}
-						<div class="col-3 recipes_card mx-auto">
-							<a class="btn" href="recette/{{ recipe.id }}">
-								<img src="uploads/recipes/{{ recipe.image }} " class="recipes_image"></img>
-							<h3>{{ recipe.title }}</h3>
-						</a>
+					{% for dietType in diets %}
+					{% for diet in recipe.diets %} 
+						{% if diet == dietType.type  %}
+							
+					<div class="col-3 recipes_card mx-auto">
+						<a class="btn" href="recette/{{ recipe.id }}">
+							<img src="uploads/recipes/{{ recipe.image }} " class="recipes_image"></img>
+						<h3>{{ recipe.title }}</h3>
+					</a>
 					{% set total = 0 %}
 					{% set count = 0 %}
 					{% for notice in recipe.notices %}
@@ -26,7 +30,11 @@
 						{# Total / nombre de note = note arrondie #}
 						<img src="{{ asset('images/etoile' ~ (total / count) | round ~ '.svg') }}" alt="Logo" class="align-self-center">
 					{% endif %}
-					</div>
+				</div>
+						{% endif %}
+					{% endfor %}
+					{% endfor %}
+
 			{% endfor %}
 		</div>
 	</div>
