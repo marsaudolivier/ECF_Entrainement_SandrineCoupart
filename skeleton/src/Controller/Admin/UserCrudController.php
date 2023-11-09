@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
@@ -38,7 +39,19 @@ class UserCrudController extends AbstractCrudController
             TextField::new('firstname'),
             TextField::new('lastname'),
             IntegerField::new('age'),
-            ArrayField::new('roles'),
+            ArrayField::new('roles')->setFormTypeOptions([
+                'entry_type' => ChoiceType::class,
+                'entry_options' => [
+                    'choices' => [
+                        'Aucun' => 'aucun',
+                        'Patient' => 'ROLE_PATIENT',
+                        'Administrateur' => 'ROLE_ADMIN',
+                    ],
+                ],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'delete_empty' => true,
+            ]),
             AssociationField::new('allergen')
             ->setFormTypeOption('multiple', true)
             ->setFormTypeOption('label', 'Allergènes')
