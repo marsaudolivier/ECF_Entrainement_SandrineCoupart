@@ -1,51 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recettes
-{% endblock %}
+{% block title %}Recettes{% endblock %}
 
 {% block body %}
-	<div class="container-fluid p-5">
-		<div class="Container_Primary p-4 exo">
-			<h2>Nos recettes</h2>
-		</div>
-		<div class="Container_Primary p-4 exo mt-4">
-			<div class="row text-center ">
-				{% for recipe in recipes %}
-					{% for dietType in diets %}
-						{% for diet in recipe.diets %}
-							{% if diet == dietType.type %}
-								{% set allergenFound = false %}
-								{% for allergensType in allergens %}
-									{% for allergen in recipe.allergen %}
-										{% if allergen == allergensType.type %}
-											{% set allergenFound = true %}
-										{% endif %}
-									{% endfor %}
-								{% endfor %}
-								{% if allergenFound %}
-									{% else %}
-										<div class="col-3 recipes_card mx-auto">
-											<a class="btn" href="recette/{{ recipe.id }}">
-												<img src="uploads/recipes/{{ recipe.image }} " class="recipes_image"></img>
-											<h3>{{ recipe.title }}</h3>
-										</a>
-										{% set total = 0 %}
-										{% set count = 0 %}
-										{% for notice in recipe.notices %}
-											{% set total = total + notice.note %}
-											{% set count = count + 1 %}
-										{% endfor %}
-										{% if count > 0 %}
-											{# Total / nombre de note = note arrondie #}
-											<img src="{{ asset('images/etoile' ~ (total / count) | round ~ '.svg') }}" alt="Logo" class="align-self-center">
-										{% endif %}
-									</div>
-								{% endif %}
-							{% endif %}
-						{% endfor %}
-					{% endfor %}
-				{% endfor %}
-			</div>
-		</div>
-	</div>
+    <div class="container-fluid p-5">
+        <div class="Container_Primary p-4 exo">
+            <h2>Nos recettes</h2>
+        </div>
+        <div class="Container_Primary p-4 exo mt-4">
+            <div class="row text-center ">
+                {% for recipe in recipes %}
+                    {% set displayRecipe = true %}
+                    {% if diets is not empty %}
+                        {% set dietFound = false %}
+                        {% for dietType in diets %}
+                            {% for diet in recipe.diets %}
+                                {% if diet == dietType.type %}
+                                    {% set dietFound = true %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                        {% if not dietFound %}
+                            {% set displayRecipe = false %}
+                        {% endif %}
+                    {% endif %}
+                    {% if allergens is not empty and displayRecipe %}
+                        {% set allergenFound = false %}
+                        {% for allergensType in allergens %}
+                            {% for allergen in recipe.allergen %}
+                                {% if allergen == allergensType.type %}
+                                    {% set allergenFound = true %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                        {% if allergenFound %}
+                            {% set displayRecipe = false %}
+                        {% endif %}
+                    {% endif %}
+                    {% if displayRecipe %}
+                        <div class="col-3 recipes_card mx-auto">
+                            <a class="btn" href="recette/{{ recipe.id }}">
+                                <img src="uploads/recipes/{{ recipe.image }} " class="recipes_image"></img>
+                                <h3>{{ recipe.title }}</h3>
+                            </a>
+							<div>
+                            {% set total = 0 %}
+                            {% set count = 0 %}
+                            {% for notice in recipe.notices %}
+                                {% set total = total + notice.note %}
+                                {% set count = count + 1 %}
+                            {% endfor %}
+                            {% if count > 0 %}
+                                {# Total / nombre de note = note arrondie #}
+                                <img src="{{ asset('images/etoile' ~ (total / count) | round ~ '.svg') }}" alt="Logo" class="align-self-center">
+                            {% endif %}
+							</div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
