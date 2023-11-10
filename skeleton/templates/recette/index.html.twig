@@ -1,5 +1,4 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Recettes
 {% endblock %}
 {% block body %}
@@ -21,8 +20,6 @@
 					{# Total / nombre de note = note arrondie #}
 					<img id="globalRating" src="{{ asset('images/etoile' ~ (total / count) | round ~ '.svg') }}" alt="Logo" class="align-self-center">
 				{% endif %}
-
-
 				<div class="d-flex">
 					<div class="row text-center">
 						<div class="col-9">
@@ -82,6 +79,5 @@
 		</div>
 	</div>
 {% endblock %}
-
 {% block javascripts %}
 {% endblock %}

@@ -29,8 +29,11 @@
 					</li>
 					<li class="nav-itemt test">
 						{% if app.user %}
-								<a href="/logout" class="btn btn-dark">Déconnexion</a>
-							{% else %}
+							<a href="/logout" class="btn btn-dark">Déconnexion</a>
+							{% if app.user.roles is not empty and "ROLE_ADMIN" in app.user.roles %}
+							<a href="/admin" class="btn btn-danger">Administration</a>
+							{% endif %}
+						{% else %}
 							<a class="nav-link" href="/connexion">Connexion</a>
 						{% endif %}
 					</li>

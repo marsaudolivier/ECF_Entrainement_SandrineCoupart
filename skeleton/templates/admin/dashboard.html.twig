@@ -1,4 +1,7 @@
 {% extends '@EasyAdmin/page/content.html.twig' %}
 {% block content %}
-<h1>Administration du site</h1>
+<div>
+<h1>Bienvenue {{ app.user.firstname }} {{ app.user.lastname }} sur la page administration de votre site.</h1>
+<a href="./" class="btn btn-primary">Retour sur la Page Principal</a>
+</div>
 {% endblock %}
