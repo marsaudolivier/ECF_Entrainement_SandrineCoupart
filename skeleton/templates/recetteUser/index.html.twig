@@ -25,17 +25,18 @@
 				{% for note in recipe.notices %}
 				{% if app.user.id == note.user %}
 					<p> Vous avez déja voté pour cette recette {{ app.user.firstname }} {{ app.user.lastname }} </p>
-						{% set voted = 1 %}
+						{% set voted = "voted" %}
 					{% else %}
 				{% endif %}	
-				{% if voted != 1 %}	
+				
+				{% endfor %}
+				{% if voted != "voted" %}	
 				<div id="addNoteForm">
 					<input type="number" id="newNote" min="1" max="5" step="0.1" placeholder="Ajouter une note (1-5)">
+					<input type="text" id="newComment"  placeholder="Ajouter un commentaire">
 					<button id="addNoteButton">Ajouter une note</button>
 				</div>
 				{% endif %}
-				{% endfor %}
-
 				<div class="d-flex">
 					<div class="row text-center">
 						<div class="col-9">
@@ -101,12 +102,16 @@
 	<script>
 		document.getElementById("addNoteButton").addEventListener("click", function () {
 const newNote = parseInt(document.getElementById("newNote").value);
+const newComment = document.getElementById("newComment").value;
+const userid = {{app.user.id}};
 const newid = {{ recipe.id }};
 if (newNote >= 1 && newNote <= 5) {
 const recipeId = {{ recipe.id }};
-axios.post(`/api/recipe/${recipeId}/add-note/${newNote}`, {
+axios.post(`/api/recipe/${recipeId}/add-note/${newNote}/${userid}/${newComment}`, {
 notes: newNote,
-id: newid
+id: newid,
+users: userid,
+comment: newComment
 }).then(function (response) { // récupération de l'objet data
 let objetJson = response.data;
 // verrif qu'il sagit bien d'un objet json
@@ -118,7 +123,9 @@ const moyenne = somme / objetJson.data.length;
 const moyenneArrondie = Math.round(moyenne);
 // affichage de la moyenne dans la div etoile
 document.getElementById("globalRating").src = `/images/etoile${moyenneArrondie}.svg`;
+document.getElementById("addNoteForm").innerHTML = `<p>Merci d'avoir voté pour notre recette</p>`;
 }
+
 }).catch(function (error) {
 console.error("Une erreur s'est produite lors de l'ajout de la note : " + error);
 });

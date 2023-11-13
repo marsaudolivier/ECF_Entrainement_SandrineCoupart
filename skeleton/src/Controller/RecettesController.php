@@ -71,15 +71,18 @@ class RecettesController extends AbstractController
             'recipe' => $recipe,
         ]);
     }
-
-    #[Route('/api/recipe/{id}/add-note/{note}', name: 'add_recipe_note',)]
-    public function addNote(int $id,int $note, Request $request, EntityManagerInterface $em, LoggerInterface $logger)
+    #[Route('/api/recipe/{id}/add-note/{note}/{user}/{newComment}', name: 'add_recipe_note')]
+    public function addNote(int $id, int $note, int $user, $newComment, Request $request, EntityManagerInterface $em, LoggerInterface $logger)
     {
         $recipe = $em->getRepository(Recipes::class)->find($id);
         $note = (int) $note;
+        $users = (int) $user;
+        $comment = $newComment;
         $notice = new Notices();
         $notice->setRecipes($recipe);
         $notice->setNote($note);
+        $notice->setUser($users);
+        $notice->setComment($comment);
         $em->persist($notice);
         $em->flush();
         $notices = $recipe->getAllNotices();
