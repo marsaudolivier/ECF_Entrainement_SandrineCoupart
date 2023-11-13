@@ -13,6 +13,7 @@
 					{# Calcul pour la note  #}
 				</br>Note :{% set total = 0 %}
 				{% set count = 0 %}
+						{% set voted = 0 %}
 				{% for notice in recipe.notices %}
 					{% set total = total + notice.note %}
 					{% set count = count + 1 %}
@@ -21,14 +22,13 @@
 					{# Total / nombre de note = note arrondie #}
 					<img id="globalRating" src="{{ asset('images/etoile' ~ (total / count) | round ~ '.svg') }}" alt="Logo" class="align-self-center">
 				{% endif %}
-							{% set voted = 0 %}
+					
 				{% for note in recipe.notices %}
 				{% if app.user.id == note.user %}
 					<p> Vous avez déja voté pour cette recette {{ app.user.firstname }} {{ app.user.lastname }} </p>
 						{% set voted = "voted" %}
 					{% else %}
 				{% endif %}	
-				
 				{% endfor %}
 				{% if voted != "voted" %}	
 				<div id="addNoteForm">
