@@ -12,7 +12,6 @@
 			<div class="row text-center ">
 				{% for recipe in recipes %}
 					{% if recipe.patients_accessible %}
-
 						<div class="col-3 recipes_card mx-auto">
 							<a class="btn" href="recette/{{ recipe.id }}">
 								<img src="uploads/recipes/{{ recipe.image }} " class="recipes_image"></img>
@@ -23,7 +22,15 @@
 					{% for notice in recipe.notices %}
 						{% set total = total + notice.note %}
 						{% set count = count + 1 %}
+						{% if notice.comment != null and count < 3 %}
+						<div class="Container_Primary merry">
+						<p>Nouveau commentaire: {{ notice.comment }}</p>
+						<p>Note: {{ notice.note }}/5</p>
+						
+						</div>
+						{% endif %}
 					{% endfor %}
+					
 					{% if count > 0 %}
 						{# Total / nombre de note = note arrondie #}
 						<img src="{{ asset('images/etoile' ~ (total / count) | round ~ '.svg') }}" alt="Logo" class="align-self-center">
