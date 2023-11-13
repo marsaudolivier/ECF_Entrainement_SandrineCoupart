@@ -22,6 +22,16 @@
 					{% for notice in recipe.notices %}
 						{% set total = total + notice.note %}
 						{% set count = count + 1 %}
+					{% endfor %}
+					{% if count > 0 %}
+						{# Total / nombre de note = note arrondie #}
+						<img src="{{ asset('images/etoile' ~ (total / count) | round ~ '.svg') }}" alt="Logo" class="align-self-center">
+					{% endif %}
+							{% set total = 0 %}
+					{% set count = 0 %}
+					{% for notice in recipe.notices %}
+						{% set total = total + notice.note %}
+						{% set count = count + 1 %}
 						{% if notice.comment != null and count < 3 %}
 						<div class="Container_Primary merry mt-1">
 						{# récupération commentaire et note associer #}
@@ -29,11 +39,7 @@
 						<p>Note: {{ notice.note }}/5</p>
 						</div>
 						{% endif %}
-					{% endfor %}
-					{% if count > 0 %}
-						{# Total / nombre de note = note arrondie #}
-						<img src="{{ asset('images/etoile' ~ (total / count) | round ~ '.svg') }}" alt="Logo" class="align-self-center">
-					{% endif %}
+						{% endfor %}
 					</div>
 				{% endif %}
 			{% endfor %}
