@@ -50,7 +50,6 @@
 							{% for notice in recipe.notices %}
 								{% set total = total + notice.note %}
 								{% set count = count + 1 %}
-
 							{% endfor %}
 							{% if count > 0 %}
 								{# Total / nombre de note = note arrondie #}
