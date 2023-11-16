@@ -4,6 +4,7 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
+        "monolog/monolog": "^3.0",
         "php": ">=8.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
