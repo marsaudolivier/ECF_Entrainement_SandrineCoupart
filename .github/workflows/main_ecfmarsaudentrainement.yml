@@ -63,4 +63,4 @@ jobs:
           app-name: 'ecfmarsaudentrainement'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7D49EBE1AC3C4AA49023FDF7357D33CF }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6DC8501D411F448097C7C4BFE35DF872 }}
