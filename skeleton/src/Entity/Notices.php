@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Entity;
-
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\NoticesRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -78,5 +81,17 @@ class Notices
 
         return $this;
     }
-    
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+    {
+        $metadata->addPropertyConstraint('comment', new NotBlank());
+        $metadata->addPropertyConstraint('comment', new Length(['min' => 3, 'max' => 50]));
+        $metadata->addPropertyConstraint('comment',  new Assert\Regex(['pattern' => '/^[a-zA-Z0-9]+$/']));
+        $metadata->addPropertyConstraint('note', new NotBlank());
+        $metadata->addPropertyConstraint('note', new Assert\Range([
+            'min' => 1,
+            'max' => 5,
+            'minMessage' => 'La note doit être d\'au moins 1.',
+            'maxMessage' => 'La note ne peut pas dépasser 5.',
+        ]));
+    }
 }

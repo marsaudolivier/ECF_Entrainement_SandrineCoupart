@@ -2,10 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\AllergensRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Recipes;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AllergensRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: AllergensRepository::class)]
 class Allergens
@@ -80,5 +86,11 @@ class Allergens
     public function getAllergen(): Collection
     {
         return $this->allergen;
+    }
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+    {
+        $metadata->addPropertyConstraint('type', new NotBlank());
+        $metadata->addPropertyConstraint('type', new Length(['min' => 3, 'max' => 50]));
+        $metadata->addPropertyConstraint('type',  new Assert\Regex(['pattern' => '/^[a-zA-Z0-9]+$/']));
     }
 }

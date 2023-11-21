@@ -1,7 +1,15 @@
 server {
+    #proxy_cache cache;
+    #proxy_cache_valid 200 1s;
     listen 8080;
     listen [::]:8080;
-    root /home/site/wwwroot/skeleton/public; 
-    index  index.php index.html index.htm;
+    root /home/site/wwwroot/skeleton/public; # Changed for symfony
+    index index.php index.html index.htm;
+    server_name _;
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+        
+
     }
 }
+    

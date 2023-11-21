@@ -2,9 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\ContactRepository;
+
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ContactRepository;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 class Contact
@@ -93,5 +98,23 @@ class Contact
 
         return $this;
     }
-
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+    {
+        $metadata->addPropertyConstraint('firstname', new NotBlank());
+        $metadata->addPropertyConstraint('firstname', new Length(['min' => 3, 'max' => 50]));
+        $metadata->addPropertyConstraint('firstname',  new Assert\Regex(['pattern' => '/^[a-zA-Z0-9]+$/']));
+        $metadata->addPropertyConstraint('lastname', new NotBlank());
+        $metadata->addPropertyConstraint('lastname', new Length(['min' => 3, 'max' => 50]));
+        $metadata->addPropertyConstraint('lastname',  new Assert\Regex(['pattern' => '/^[a-zA-Z0-9]+$/']));
+        $metadata->addPropertyConstraint('phone', new NotBlank());
+        $metadata->addPropertyConstraint('phone',  new Assert\Regex(['pattern' => '/^0[1-9](\d{2}){4}$/',
+        'message' => 'Le numéro de téléphone doit être au format français, par exemple 0549334788.']));
+        $metadata->addPropertyConstraint('mail', new NotBlank());
+        $metadata->addPropertyConstraint('mail', new Assert\Email([
+            'message' => 'Veuillez entrer une adresse e-mail valide.']));
+        $metadata->addPropertyConstraint('mail', new Assert\Length(['min' => 3, 'max' => 50]));
+        $metadata->addPropertyConstraint('request', new NotBlank());
+        $metadata->addPropertyConstraint('request', new Length(['min' => 3, 'max' => 500]));
+        $metadata->addPropertyConstraint('request',  new Assert\Regex(['pattern' => '/^[a-zA-Z0-9]+$/']));
+    }
 }
