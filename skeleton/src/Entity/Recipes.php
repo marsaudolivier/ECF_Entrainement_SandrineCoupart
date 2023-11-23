@@ -353,25 +353,13 @@ class Recipes
     {
         $metadata->addPropertyConstraint('title', new NotBlank());
         $metadata->addPropertyConstraint('title', new Length(['min' => 3, 'max' => 50]));
-        $metadata->addPropertyConstraint('title',  new Assert\Regex(['pattern' => '/^[a-zA-Z0-9]+$/']));
-        $metadata->addPropertyConstraint('description', new NotBlank());
-        $metadata->addPropertyConstraint('description', new Length(['min' => 3, 'max' => 500]));
-        $metadata->addPropertyConstraint('description',  new Assert\Regex(['pattern' => '/^[a-zA-Z0-9]+$/']));
-        $metadata->addPropertyConstraint('steps', new NotBlank());
-        $metadata->addPropertyConstraint('steps', new Length(['min' => 3, 'max' => 500]));
-        $metadata->addPropertyConstraint('steps',  new Assert\Regex(['pattern' => '/^[a-zA-Z0-9]+$/']));
-        $metadata->addPropertyConstraint('PreparationTime', new NotBlank());
-        $metadata->addPropertyConstraint('PreparationTime', new Length(['min' => 3, 'max' => 50]));
+        $metadata->addPropertyConstraint('title',  new Assert\Regex(['pattern' => '/^[a-zA-Z0-9\sÀ-ÖØ-öø-ÿ.\'-]+$/u',]));
         $metadata->addPropertyConstraint('PreparationTime',  new Assert\Regex(['pattern' => '/^[a-zA-Z0-9\-]+$/',
         'message' => 'La valeur ne doit contenir que des lettres, des chiffres ou des tirets (-).',
     ]));
-        $metadata->addPropertyConstraint('TimeOfRest', new NotBlank());
-        $metadata->addPropertyConstraint('TimeOfRest', new Length(['min' => 3, 'max' => 50]));
         $metadata->addPropertyConstraint('TimeOfRest',  new Assert\Regex(['pattern' => '/^[a-zA-Z0-9\-]+$/',
         'message' => 'La valeur ne doit contenir que des lettres, des chiffres ou des tirets (-).',
     ]));
-        $metadata->addPropertyConstraint('CookingTime', new NotBlank());
-        $metadata->addPropertyConstraint('CookingTime', new Length(['min' => 3, 'max' => 50]));
         $metadata->addPropertyConstraint('CookingTime',  new Assert\Regex(['pattern' => '/^[a-zA-Z0-9\-]+$/',
         'message' => 'La valeur ne doit contenir que des lettres, des chiffres ou des tirets (-).',
     ]));

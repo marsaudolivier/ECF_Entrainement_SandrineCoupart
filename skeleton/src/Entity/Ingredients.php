@@ -86,7 +86,9 @@ class Ingredients
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addPropertyConstraint('name', new NotBlank());
-        $metadata->addPropertyConstraint('name', new Length(['min' => 3, 'max' => 50]));
-        $metadata->addPropertyConstraint('name',  new Assert\Regex(['pattern' => '/^[a-zA-Z0-9]+$/']));
+        $metadata->addPropertyConstraint('name', new Assert\Regex([
+            'pattern' => '/^[a-zA-Z0-9\sÀ-ÖØ-öø-ÿ.\'-]+$/u',
+            'message' => 'usage des chiffre et lettre uniquement'
+        ]));
     }
 }
