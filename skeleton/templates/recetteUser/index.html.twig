@@ -25,7 +25,7 @@
 					
 				{% for note in recipe.notices %}
 				{% if app.user.id == note.user %}
-					<p> Vous avez déja voté pour cette recette {{ app.user.firstname }} {{ app.user.lastname }} </p>
+					<p class="text_recipe"> Vous avez déja voté pour cette recette {{ app.user.firstname }} {{ app.user.lastname }} </p>
 						{% set voted = "voted" %}
 					{% else %}
 				{% endif %}	
@@ -38,9 +38,9 @@
 				</div>
 				{% endif %}
 				<div class="d-flex">
-					<div class="row text-center">
+					<div class="row text-center text_recipe">
 						<div class="col-9">
-							<h4>Description :</h4>
+							<h3>Description :</h3>
 							<p>{{ recipe.description   | raw }}</p>
 							<div class="container_recipe_time">
 								<p>Temps Total :{{ recipe.TotalTime }}</p>
@@ -61,16 +61,17 @@
 							</div>
 						</div>
 						<div class="col-2 mt-2">
-							<img src="/uploads/recipes/{{ recipe.image }}" class="recipe_image h-75 w-100"></img>
+							<img src="/upload/recipes/{{ recipe.image }}" class="recipe_image h-75 w-100"></img>
 					</div>
-					<div class="row mt-4">
+					<div class="row mt-4 text_recipe">
 						<div class="col-4">
+						<h3>Ingrédient</h3>
 							{% for ingredient in recipe.ingredien %}
 								<li>{{ ingredient.name }}</li>
 							{% endfor %}
 						</div>
-						<div class="col-8 container_recipe_time">
-							<h4>Etapes</h4>
+						<div class="col-8 container_recipe_time text_recipe">
+							<h3>Etapes</h3>
 							<p>{{ recipe.steps  | raw }}</p>
 						</div>
 					</div>

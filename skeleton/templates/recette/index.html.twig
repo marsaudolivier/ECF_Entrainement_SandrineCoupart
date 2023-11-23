@@ -22,11 +22,11 @@
 				{% endif %}
 				<div class="d-flex">
 					<div class="row text-center">
-						<div class="col-9">
-							<h4>Description :</h4>
-							<p>{{ recipe.description   | raw }}</p>
-							<div class="container_recipe_time">
-								<p>Temps Total :{{ recipe.TotalTime }}</p>
+						<div class="col-9 text_recipe">
+							<h2>Description :</h2>
+							<p class="text_recipe">{{ recipe.description   | raw }}</p>
+							<div class="container_recipe_time text_recipe">
+								<p >Temps Total :{{ recipe.TotalTime }}</p>
 								<div class="d-flex justify-content-around">
 									<div>
 										<p>Temps de préparation :</p>
@@ -44,16 +44,17 @@
 							</div>
 						</div>
 						<div class="col-2 mt-2">
-							<img src="/uploads/recipes/{{ recipe.image }}" class="recipe_image h-75 w-100"></img>
+							<img src="/upload/recipes/{{ recipe.image }}" class="recipe_image h-75 w-100"></img>
 					</div>
-					<div class="row mt-4">
+					<div class="row mt-4 text_recipe">
 						<div class="col-4">
+							<h3>Ingredients</h3>
 							{% for ingredient in recipe.ingredien %}
 								<li>{{ ingredient.name }}</li>
 							{% endfor %}
 						</div>
 						<div class="col-8 container_recipe_time">
-							<h4>Etapes</h4>
+							<h3>Etapes</h3>
 							<p>{{ recipe.steps  | raw }}</p>
 						</div>
 					</div>
@@ -62,15 +63,26 @@
 							<div>
 								<H4>
 									ALLERGENES:</H4>
+									{% set count = 0 %}
 								{% for allergen in recipe.allergen %}
+									{% set count = count + 1 %}
 									<li class="red merri">{{ allergen }}</li>
+
 								{% endfor %}
+										{% if count < 1 %}
+										<p class="red merri">aucun allergène sur cette recette</p>
+									{% endif %}
 							</div>
 							<div>
 								<H4>TYPES DE RéGIME :</H4>
+								{% set count1 = 0 %}
 								{% for diets in recipe.diets %}
+								{% set count1 = count1 + 1 %}
 									<li class="red merri">{{ diets }}</li>
 								{% endfor %}
+									{% if count1 < 1 %}
+										<p class="red merri">aucun régime alimentaire concerné.</p>
+									{% endif %}
 							</div>
 						</div>
 					</div>
