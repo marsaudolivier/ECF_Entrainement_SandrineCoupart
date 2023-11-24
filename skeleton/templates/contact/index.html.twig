@@ -35,30 +35,30 @@
 					</div>
 				</div>
 			</div>
-<div class="col-12 text-center">
-    {{ form_row(form.phone, {
+			<div class="col-12 text-center">
+				{{ form_row(form.phone, {
         'label': 'Téléphone',
         'attr': {
             'class': 'form-control',
             'placeholder': 'Entrez votre numéro de téléphone'
         }
     }) }}
-    {{ form_row(form.mail, {
+				{{ form_row(form.mail, {
         'label': 'Adresse e-mail',
         'attr': {
             'class': 'form-control',
             'placeholder': 'Entrez votre adresse e-mail'
         }
     }) }}
-    {{ form_row(form.request, {
+				{{ form_row(form.request, {
         'label': 'Votre demande',
         'attr': {
             'class': 'form-control',
             'placeholder': 'Entrez votre demande'
         }
     }) }}
-    <button type="submit" class="btn btn-primary mt-3 mx-auto">Valider</button>
-</div>
+				<button type="submit" class="btn btn-primary mt-3 mx-auto">Valider</button>
+			</div>
 			{{ form_end(form) }}
 		</div>
 	</div>
@@ -66,10 +66,14 @@
 		<div class="row align-items-center">
 			<img src="{{ asset('images/Ellipse1.png') }}" alt="Photo de Sandrine Coupart" class="ellipse_contact col-2 mx-auto ">
 			<div class="col-8 exo">
-				<h4>Par mail: <strong>Sandrine-coupart@mail.fr</strong></h4>
-                <h4>Par Téléphone: <strong>06-00-00-00-00</strong> </h4>
+				<h4>Par mail:
+					<strong>Sandrine-coupart@mail.fr</strong>
+				</h4>
+				<h4>Par Téléphone:
+					<strong>06-00-00-00-00</strong>
+				</h4>
 			</div>
 		</div>
-
+    </div>
 
 	{% endblock %}

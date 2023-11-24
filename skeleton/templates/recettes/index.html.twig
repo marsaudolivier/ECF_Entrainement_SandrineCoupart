@@ -12,10 +12,10 @@
 			<div class="row text-center ">
 				{% for recipe in recipes %}
 					{% if recipe.patients_accessible %}
-						<div class="col-3 recipes_card mx-auto">
+						<div class="col-12 col-md-6 col-xl-3 recipes_card mx-auto">
 							<a class="btn" href="recette/{{ recipe.id }}">
 								<img src="upload/recipes/{{ recipe.image }} " class="recipes_image"></img>
-							<h3>{{ recipe.title }}</h3>
+							<h5>{{ recipe.title }}</h5>
 						</a>
 					{% set total = 0 %}
 					{% set count = 0 %}
