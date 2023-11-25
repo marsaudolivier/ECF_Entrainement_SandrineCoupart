@@ -4,6 +4,11 @@
 {% endblock %}
 
 {% block body %}
+{% for message in app.flashes('success') %}
+    <div class="alert alert-primary">
+        {{ message }}
+    </div>
+{% endfor %}
 	<div class="Container_Primary mt-4 container p-4">
 		<div class="row align-items-center">
 			<h2 class="col-6 col-sm-8 exo">me contacter</h2>
